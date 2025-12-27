@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Secure File Share</title>
+    <style>
+        body { font-family: sans-serif; padding: 40px; max-width: 600px; margin: auto; background: #f4f4f9; }
+        .box { background: white; padding: 20px; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+        h1 { color: #333; }
+        button { background: #007bff; color: white; border: none; padding: 10px 20px; cursor: pointer; border-radius: 4px; }
+        li { margin: 10px 0; padding: 10px; background: #eee; display: flex; justify-content: space-between; }
+        a { text-decoration: none; color: #007bff; font-weight: bold; }
+    </style>
+</head>
+<body>
+    <div class="box">
+        <h1>🔐 Secure Vault By Zannu Opeyemi</h1>
+        
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                {% for message in messages %}<p style="color:green">{{ message }}</p>{% endfor %}
+            {% endif %}
+        {% endwith %}
+
+        <form action="/upload" method="post" enctype="multipart/form-data">
+            <input type="file" name="file" required>
+            <button type="submit">Encrypt & Upload</button>
+        </form>
+
+        <h3>Encrypted Files:</h3>
+        <ul>
+            {% for file in files %}
+            <li>
+                {{ file }}
+                <a href="/download/{{ file }}">Decrypt</a>
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
+</body>
+</html>
